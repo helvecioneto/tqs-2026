@@ -27,6 +27,25 @@ def test_rejeita_email_sem_arroba():
     assert validar_email("semarroba.com") is False
 
 
+def test_aceita_cnpj_valido_com_mascara():
+    assert validar_cnpj("11.222.333/0001-81") is True
+
+
+def test_aceita_cnpj_valido_sem_mascara():
+    assert validar_cnpj("11222333000181") is True
+
+
+def test_rejeita_cnpj_com_digito_verificador_errado():
+    assert validar_cnpj("11.222.333/0001-82") is False
+
+
+def test_rejeita_cnpj_com_todos_digitos_iguais():
+    assert validar_cnpj("11111111111111") is False
+
+
+def test_rejeita_cnpj_vazio():
+    assert validar_cnpj("") is False
+
 def test_aceita_telefone_valido_com_mascara():
     assert validar_telefone("(11) 91234-5678") is True
 
