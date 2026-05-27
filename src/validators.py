@@ -16,7 +16,7 @@ def _calcular_digito_verificador(digitos: str, peso_inicial: int) -> int:
     return 0 if resto == 10 else resto
 
 
-def validar_cpf(cpf: str | None) -> bool:
+def validar_cpf(cpf: str | None) -> bool
     if not isinstance(cpf, str):
         return False
 
