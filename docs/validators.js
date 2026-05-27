@@ -33,3 +33,34 @@ export function validarEmail(email) {
     if (typeof email !== "string" || email.length === 0) return false;
     return REGEX_EMAIL.test(email);
 }
+
+
+function calcularDvCnpj(digitos, pesos) {
+    let soma = 0;
+    for (let i = 0; i < digitos.length; i++) {
+        soma += parseInt(digitos[i], 10) * pesos[i];
+    }
+    const resto = soma % 11;
+    return resto < 2 ? 0 : 11 - resto;
+}
+
+export function validarCnpj(cnpj) {
+    if (typeof cnpj !== "string") return false;
+    const apenasDigitos = cnpj.trim().replace(/[.\-/\s]/g, "");
+    if (apenasDigitos.length !== 14 || !/^\d{14}$/.test(apenasDigitos)) return false;
+    if (new Set(apenasDigitos).size === 1) return false;
+    const pesosP = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const pesosS = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const primeiro = calcularDvCnpj(apenasDigitos.slice(0, 12), pesosP);
+    const segundo = calcularDvCnpj(apenasDigitos.slice(0, 13), pesosS);
+    return apenasDigitos[12] === String(primeiro) && apenasDigitos[13] === String(segundo);
+}
+
+export function validarTelefone(telefone) {
+    if (typeof telefone !== "string") return false;
+    const apenasDigitos = telefone.trim().replace(/[()\-\s]/g, "");
+    if (apenasDigitos.length !== 11 || !/^\d{11}$/.test(apenasDigitos)) return false;
+    const ddd = parseInt(apenasDigitos.slice(0, 2), 10);
+    if (ddd < 11 || ddd > 99) return false;
+    return apenasDigitos[2] === "9";
+}
