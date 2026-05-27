@@ -21,10 +21,17 @@ def test_index_retorna_formulario(client):
     assert resposta.status_code == 200
     assert "Teste e Qualidade de Software" in resposta.get_data(as_text=True)
 
-
 def test_validar_retorna_resultados_corretos(client):
     resposta = client.post(
         "/validar",
-        json={"cpf": "111.444.777-35", "email": "aluno@ufopa.edu.br"},
+        json={
+            "cpf": "111.444.777-35",
+            "email": "aluno@ufopa.edu.br",
+            "telefone": "(11) 91234-5678",
+        },
     )
-    assert resposta.get_json() == {"cpf_valido": True, "email_valido": True}
+    assert resposta.get_json() == {
+        "cpf_valido": True,
+        "email_valido": True,
+        "telefone_valido": True,
+    }
