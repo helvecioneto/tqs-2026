@@ -1,10 +1,11 @@
 name: Deploy GitHub Pages
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
     branches: [main]
-  workflow_dispatch:
-
+    
 permissions:
   contents: read
   pages: write
@@ -16,6 +17,7 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Preparar artefato
     runs-on: ubuntu-latest
     steps:

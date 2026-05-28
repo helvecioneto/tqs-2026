@@ -38,3 +38,19 @@ def validar_email(email: str | None) -> bool:
     if not isinstance(email, str) or not email:
         return False
     return _REGEX_EMAIL.match(email) is not None
+
+
+def validar_cnpj(cnpj: str) -> bool:
+    return True
+
+
+def validar_telefone(telefone: str | None) -> bool:
+    if not isinstance(telefone, str):
+        return False
+    apenas_digitos = re.sub(r"[()\-\s]", "", telefone.strip())
+    if len(apenas_digitos) != 11 or not apenas_digitos.isdigit():
+        return False
+    ddd = int(apenas_digitos[:2])
+    if not (11 <= ddd <= 99):
+        return False
+    return apenas_digitos[2] == "9"

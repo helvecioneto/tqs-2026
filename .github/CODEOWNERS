@@ -5,7 +5,7 @@
 # para ativar a atribuição automática.
 #
 # Exemplo:
-#   * @SEU-USUARIO
+* @scottiit
 #
 # Em projetos maiores, você pode dividir por pasta:
 #   src/auth/   @time-de-seguranca
