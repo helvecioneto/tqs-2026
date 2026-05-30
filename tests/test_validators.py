@@ -9,7 +9,7 @@ para cobrir casos de borda — adicione-os à medida que evoluir o projeto.
 """
 
 
-from src.validators import validar_cpf, validar_email, validar_cnpj
+from src.validators import validar_cpf, validar_email, validar_cnpj, validar_telefone
 
 
 def test_aceita_cpf_valido():
@@ -48,3 +48,24 @@ def test_rejeita_cnpj_com_todos_digitos_iguais():
 
 def test_rejeita_cnpj_vazio():
     assert validar_cnpj("") is False
+
+
+def test_aceita_telefone_valido_com_mascara():
+    assert validar_telefone("(11) 91234-5678") is True
+
+
+def test_aceita_telefone_valido_sem_mascara():
+    assert validar_telefone("11912345678") is True
+
+
+def test_rejeita_telefone_sem_nono_digito():
+    assert validar_telefone("(11) 81234-5678") is False
+
+
+def test_rejeita_telefone_com_ddd_invalido():
+    assert validar_telefone("(10) 91234-5678") is False
+
+
+def test_rejeita_telefone_com_tamanho_errado():
+    assert validar_telefone("1191234567") is False
+
