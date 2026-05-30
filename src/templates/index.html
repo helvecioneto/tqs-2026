@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,11 @@
             --vermelho: #cc3300;
             --verde: #008040;
         }
-        * { box-sizing: border-box; }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: system-ui, -apple-system, sans-serif;
             max-width: 640px;
@@ -19,10 +24,26 @@
             line-height: 1.5;
             color: #222;
         }
-        h1 { color: var(--azul); }
-        .subtitulo { color: #666; margin-top: -0.5rem; }
-        form { display: grid; gap: 1rem; margin-top: 2rem; }
-        label { font-weight: 600; }
+
+        h1 {
+            color: var(--azul);
+        }
+
+        .subtitulo {
+            color: #666;
+            margin-top: -0.5rem;
+        }
+
+        form {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
         input {
             width: 100%;
             padding: 0.5rem;
@@ -30,6 +51,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         button {
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
@@ -39,12 +61,29 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        button:hover { background: #004d73; }
-        .resultado { margin-top: 1.5rem; padding: 1rem; border-radius: 4px; }
-        .valido { background: #e0f5e8; color: var(--verde); }
-        .invalido { background: #fbe5e0; color: var(--vermelho); }
+
+        button:hover {
+            background: #004d73;
+        }
+
+        .resultado {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 4px;
+        }
+
+        .valido {
+            background: #e0f5e8;
+            color: var(--verde);
+        }
+
+        .invalido {
+            background: #fbe5e0;
+            color: var(--vermelho);
+        }
     </style>
 </head>
+
 <body>
     <h1>Teste e Qualidade de Software - PC010027</h1>
     <p class="subtitulo">Demo: validador de CPF e e-mail (UFOPA)</p>
@@ -58,6 +97,10 @@
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" placeholder="aluno@ufopa.edu.br" required>
         </div>
+        <div>
+            <label for="telefone">Telefone</label>
+            <input type="text" id="telefone" name="telefone" placeholder="(11) 91234-5678" required>
+        </div>
         <button type="submit">Validar</button>
     </form>
 
@@ -68,10 +111,11 @@
             e.preventDefault();
             const cpf = document.getElementById("cpf").value;
             const email = document.getElementById("email").value;
+            const telefone = document.getElementById("telefone").value;
             const resposta = await fetch("/validar", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ cpf, email }),
+                body: JSON.stringify({ cpf, email, telefone }),
             });
             const dados = await resposta.json();
             const div = document.getElementById("resultado");
@@ -82,8 +126,12 @@
                 <div class="resultado ${dados.email_valido ? "valido" : "invalido"}">
                     E-mail: ${dados.email_valido ? "válido" : "inválido"}
                 </div>
+                <div class="resultado ${dados.telefone_valido ? "valido" : "invalido"}">
+                    Telefone: ${dados.telefone_valido ? "válido" : "inválido"}
+                </div>
             `;
         });
     </script>
 </body>
+
 </html>
