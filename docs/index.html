@@ -40,14 +40,17 @@
     </footer>
 
     <script type="module">
-        import { validarCpf, validarEmail } from "./validators.js";
+        
+        import { validarCpf, validarEmail, validarTelefone } from "./validators.js";
 
         document.getElementById("formulario").addEventListener("submit", (e) => {
             e.preventDefault();
             const cpf = document.getElementById("cpf").value;
             const email = document.getElementById("email").value;
+            const telefone = document.getElementById("telefone").value;
             const cpfValido = validarCpf(cpf);
             const emailValido = validarEmail(email);
+            const telefoneValido = validarTelefone(telefone);
             const div = document.getElementById("resultado");
             div.innerHTML = `
                 <div class="resultado ${cpfValido ? "valido" : "invalido"}">
@@ -56,8 +59,12 @@
                 <div class="resultado ${emailValido ? "valido" : "invalido"}">
                     E-mail: ${emailValido ? "válido" : "inválido"}
                 </div>
+                <div class="resultado ${telefoneValido ? "valido" : "invalido"}">
+                    Telefone: ${telefoneValido ? "válido" : "inválido"}
+                </div>
             `;
         });
+        
     </script>
 </body>
 </html>
