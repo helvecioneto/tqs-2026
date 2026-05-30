@@ -62,3 +62,16 @@ def validar_cnpj(cnpj: str | None) -> bool:
     primeiro = _calcular_dv_cnpj(apenas_digitos[:12], pesos_primeiro)
     segundo = _calcular_dv_cnpj(apenas_digitos[:13], pesos_segundo)
     return apenas_digitos[12] == str(primeiro) and apenas_digitos[13] == str(segundo)
+
+
+def validar_telefone(telefone: str | None) -> bool:
+    if not isinstance(telefone, str):
+        return False
+    apenas_digitos = re.sub(r"[()\-\s]", "", telefone.strip())
+    if len(apenas_digitos) != 11 or not apenas_digitos.isdigit():
+        return False
+    ddd = int(apenas_digitos[:2])
+    if not (11 <= ddd <= 99):
+        return False
+    return apenas_digitos[2] == "9"
+
